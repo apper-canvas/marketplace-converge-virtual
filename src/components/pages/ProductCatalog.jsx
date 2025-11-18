@@ -56,8 +56,10 @@ const ProductCatalog = () => {
       setError("")
       const data = await productService.getAll()
       setProducts(data)
-    } catch (err) {
-      setError(err.message || "Failed to load products")
+} catch (err) {
+      const errorMessage = err?.response?.data?.message || err.message || "Failed to load products"
+      console.error("ProductCatalog - Error loading products:", errorMessage)
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }

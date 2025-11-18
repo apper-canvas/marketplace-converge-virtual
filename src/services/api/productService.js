@@ -30,8 +30,8 @@ class ProductService {
 
       const response = await apperClient.fetchRecords('products_c', params)
       
-      if (!response.success) {
-        console.error("Error fetching products:", response.message)
+if (!response.success) {
+        console.error(`productService.getAll - API error: ${response.message}`)
         return []
       }
 
@@ -52,7 +52,7 @@ class ProductService {
         images: product.images_c ? JSON.parse(product.images_c) : []
       }))
     } catch (error) {
-      console.error("Error fetching products:", error?.response?.data?.message || error.message)
+console.error(`productService.getAll - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }
@@ -85,8 +85,8 @@ class ProductService {
 
       const response = await apperClient.getRecordById('products_c', parseInt(id), params)
       
-      if (!response.success) {
-        console.error("Error fetching product:", response.message)
+if (!response.success) {
+        console.error(`productService.getById - API error for ID ${id}: ${response.message}`)
         return null
       }
 
@@ -110,7 +110,7 @@ class ProductService {
         images: product.images_c ? JSON.parse(product.images_c) : []
       }
     } catch (error) {
-      console.error("Error fetching product:", error?.response?.data?.message || error.message)
+console.error(`productService.getById - Network/parsing error for ID ${id}: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return null
     }
   }
@@ -149,8 +149,8 @@ class ProductService {
 
       const response = await apperClient.fetchRecords('products_c', params)
       
-      if (!response.success) {
-        console.error("Error fetching products by category:", response.message)
+if (!response.success) {
+        console.error(`productService.getByCategory - API error for category "${category}": ${response.message}`)
         return []
       }
 
@@ -171,7 +171,7 @@ class ProductService {
         images: product.images_c ? JSON.parse(product.images_c) : []
       }))
     } catch (error) {
-      console.error("Error fetching products by category:", error?.response?.data?.message || error.message)
+console.error(`productService.getByCategory - Network/parsing error for category "${category}": ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }
@@ -239,8 +239,8 @@ class ProductService {
 
       const response = await apperClient.fetchRecords('products_c', params)
       
-      if (!response.success) {
-        console.error("Error searching products:", response.message)
+if (!response.success) {
+        console.error(`productService.search - API error for query "${query}": ${response.message}`)
         return []
       }
 
@@ -261,7 +261,7 @@ class ProductService {
         images: product.images_c ? JSON.parse(product.images_c) : []
       }))
     } catch (error) {
-      console.error("Error searching products:", error?.response?.data?.message || error.message)
+console.error(`productService.search - Network/parsing error for query "${query}": ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }
@@ -303,7 +303,7 @@ class ProductService {
       const response = await apperClient.fetchRecords('products_c', params)
       
       if (!response.success) {
-        console.error("Error fetching featured products:", response.message)
+console.error(`productService.getFeatured - API error: ${response.message}`)
         return []
       }
 
@@ -324,7 +324,7 @@ class ProductService {
         images: product.images_c ? JSON.parse(product.images_c) : []
       }))
     } catch (error) {
-      console.error("Error fetching featured products:", error?.response?.data?.message || error.message)
+console.error(`productService.getFeatured - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }
@@ -345,14 +345,14 @@ class ProductService {
 
       const response = await apperClient.fetchRecords('products_c', params)
       
-      if (!response.success) {
-        console.error("Error fetching categories:", response.message)
+if (!response.success) {
+        console.error(`productService.getCategories - API error: ${response.message}`)
         return []
       }
 
       return [...new Set(response.data.map(product => product.category_c).filter(Boolean))]
     } catch (error) {
-      console.error("Error fetching categories:", error?.response?.data?.message || error.message)
+console.error(`productService.getCategories - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }

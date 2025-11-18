@@ -53,10 +53,10 @@ const ProductGrid = ({
     return <Loading variant="products" className={className} />
   }
 
-  if (error) {
+if (error) {
     return (
       <ErrorView
-        error={error}
+        error={typeof error === 'string' ? error : (error?.message || 'An error occurred while loading products')}
         onRetry={onRetry}
         className={className}
       />
