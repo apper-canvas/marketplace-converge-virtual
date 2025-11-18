@@ -70,11 +70,25 @@ specifications: ProductService.safeJsonParse(product.specifications_c, null),
     }
   }
 
-  async getById(id) {
+async getById(id) {
     try {
+      // Validate SDK availability
+      if (typeof window === 'undefined' || !window.ApperSDK) {
+        console.error('productService.getById - ApperSDK not available on window object')
+        return null
+      }
+
       const apperClient = getApperClient()
       if (!apperClient) {
-        throw new Error('ApperClient not initialized')
+        console.error('productService.getById - ApperClient not initialized')
+        return null
+      }
+
+      // Validate ID parameter
+      const productId = parseInt(id)
+      if (isNaN(productId) || productId <= 0) {
+        console.error(`productService.getById - Invalid ID provided: ${id}`)
+        return null
       }
 
       const params = {
@@ -96,15 +110,19 @@ specifications: ProductService.safeJsonParse(product.specifications_c, null),
         ]
       }
 
-      const response = await apperClient.getRecordById('products_c', parseInt(id), params)
+      console.log(`productService.getById - Fetching product ID ${productId}`)
+      const response = await apperClient.getRecordById('products_c', productId, params)
       
-if (!response.success) {
+      if (!response.success) {
         console.error(`productService.getById - API error for ID ${id}: ${response.message}`)
         return null
       }
 
       const product = response.data
-      if (!product) return null
+      if (!product) {
+        console.log(`productService.getById - No product found for ID ${id}`)
+        return null
+      }
 
       return {
         Id: product.Id,
@@ -119,11 +137,20 @@ if (!response.success) {
         reviewCount: product.review_count_c,
         inStock: product.in_stock_c,
         stockCount: product.stock_count_c,
-specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        specifications: ProductService.safeJsonParse(product.specifications_c, null),
         images: ProductService.safeJsonParse(product.images_c, [])
       }
     } catch (error) {
-console.error(`productService.getById - Network/parsing error for ID ${id}: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
+      // Enhanced error logging with more context
+      const errorMessage = error?.response?.data?.message || error.message || 'Unknown error'
+      const errorType = error.name || 'Error'
+      console.error(`productService.getById - ${errorType} for ID ${id}: ${errorMessage}`)
+      
+      // Additional debugging information
+      if (error.stack) {
+        console.error('Stack trace:', error.stack)
+      }
+      
       return null
     }
   }
