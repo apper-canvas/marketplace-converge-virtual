@@ -1,0 +1,312 @@
+[
+  {
+    "id": 1,
+    "title": "Premium Wireless Headphones",
+    "description": "High-quality wireless headphones with active noise cancellation, premium sound quality, and long battery life. Perfect for music lovers and professionals.",
+    "price": 299.99,
+    "originalPrice": 399.99,
+    "category": "Electronics",
+    "subcategory": "Audio",
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.8,
+    "reviewCount": 124,
+    "inStock": true,
+    "stockCount": 45,
+    "specifications": {
+      "batteryLife": "30 hours",
+      "connectivity": "Bluetooth 5.0",
+      "weight": "250g",
+      "chargingTime": "2 hours",
+      "noiseCancellation": "Active",
+      "warranty": "2 years"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Organic Cotton T-Shirt",
+    "description": "Soft, comfortable, and sustainable organic cotton t-shirt. Available in multiple colors and sizes. Perfect for everyday wear.",
+    "price": 29.99,
+    "originalPrice": 39.99,
+    "category": "Clothing",
+    "subcategory": "Shirts",
+    "images": [
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1583743814966-8936f37f4ec2?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.5,
+    "reviewCount": 89,
+    "inStock": true,
+    "stockCount": 120,
+    "specifications": {
+      "material": "100% Organic Cotton",
+      "fit": "Regular",
+      "care": "Machine washable",
+      "sizes": "XS-XXL",
+      "origin": "Made in USA"
+    }
+  },
+  {
+    "id": 3,
+    "title": "JavaScript: The Definitive Guide",
+    "description": "Comprehensive guide to JavaScript programming. Perfect for beginners and experienced developers alike. Updated for modern ES6+ features.",
+    "price": 49.99,
+    "originalPrice": 49.99,
+    "category": "Books",
+    "subcategory": "Programming",
+    "images": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.7,
+    "reviewCount": 156,
+    "inStock": true,
+    "stockCount": 78,
+    "specifications": {
+      "pages": "1096",
+      "publisher": "O'Reilly Media",
+      "edition": "7th Edition",
+      "language": "English",
+      "format": "Paperback",
+      "isbn": "978-1491952023"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Professional Running Shoes",
+    "description": "Lightweight and comfortable running shoes designed for professional athletes and fitness enthusiasts. Advanced cushioning technology.",
+    "price": 129.99,
+    "originalPrice": 179.99,
+    "category": "Sports",
+    "subcategory": "Footwear",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.6,
+    "reviewCount": 203,
+    "inStock": true,
+    "stockCount": 67,
+    "specifications": {
+      "weight": "280g",
+      "drop": "8mm",
+      "cushioning": "Max",
+      "terrain": "Road",
+      "sizes": "6-12 US",
+      "warranty": "1 year"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Smart Home Coffee Maker",
+    "description": "WiFi-enabled smart coffee maker with app control, programmable brewing, and premium build quality. Make perfect coffee every time.",
+    "price": 199.99,
+    "originalPrice": 249.99,
+    "category": "Home",
+    "subcategory": "Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.4,
+    "reviewCount": 78,
+    "inStock": true,
+    "stockCount": 34,
+    "specifications": {
+      "capacity": "12 cups",
+      "connectivity": "WiFi",
+      "programmable": "24 hours",
+      "material": "Stainless steel",
+      "dimensions": "14x10x12 inches",
+      "warranty": "3 years"
+    }
+  },
+  {
+    "id": 6,
+    "title": "4K Gaming Monitor",
+    "description": "Ultra-high resolution 4K gaming monitor with 144Hz refresh rate, HDR support, and low input lag. Perfect for gaming and professional work.",
+    "price": 599.99,
+    "originalPrice": 799.99,
+    "category": "Electronics",
+    "subcategory": "Monitors",
+    "images": [
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.9,
+    "reviewCount": 145,
+    "inStock": false,
+    "stockCount": 0,
+    "specifications": {
+      "resolution": "3840x2160",
+      "refreshRate": "144Hz",
+      "size": "27 inches",
+      "panelType": "IPS",
+      "connectivity": "HDMI, DisplayPort, USB-C",
+      "warranty": "3 years"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Designer Leather Jacket",
+    "description": "Premium genuine leather jacket with modern design. Handcrafted with attention to detail. A timeless piece for your wardrobe.",
+    "price": 299.99,
+    "originalPrice": 449.99,
+    "category": "Clothing",
+    "subcategory": "Jackets",
+    "images": [
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1520975954732-35dd22299614?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.7,
+    "reviewCount": 92,
+    "inStock": true,
+    "stockCount": 23,
+    "specifications": {
+      "material": "100% Genuine Leather",
+      "lining": "Cotton blend",
+      "closure": "Zipper",
+      "pockets": "4",
+      "sizes": "S-XXL",
+      "care": "Professional cleaning"
+    }
+  },
+  {
+    "id": 8,
+    "title": "Python Programming Bible",
+    "description": "Complete guide to Python programming from basics to advanced topics. Includes practical projects and real-world examples.",
+    "price": 39.99,
+    "originalPrice": 39.99,
+    "category": "Books",
+    "subcategory": "Programming",
+    "images": [
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.8,
+    "reviewCount": 267,
+    "inStock": true,
+    "stockCount": 156,
+    "specifications": {
+      "pages": "864",
+      "publisher": "Tech Publications",
+      "edition": "2024 Edition",
+      "language": "English",
+      "format": "Paperback & eBook",
+      "isbn": "978-1234567890"
+    }
+  },
+  {
+    "id": 9,
+    "title": "Professional Tennis Racket",
+    "description": "High-performance tennis racket used by professional players. Lightweight carbon fiber construction with excellent control and power.",
+    "price": 189.99,
+    "originalPrice": 249.99,
+    "category": "Sports",
+    "subcategory": "Tennis",
+    "images": [
+      "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.6,
+    "reviewCount": 134,
+    "inStock": true,
+    "stockCount": 45,
+    "specifications": {
+      "weight": "300g",
+      "headSize": "100 sq in",
+      "material": "Carbon Fiber",
+      "stringPattern": "16x19",
+      "gripSize": "4 3/8",
+      "warranty": "2 years"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Smart Air Purifier",
+    "description": "Advanced air purifier with HEPA filtration, smart sensors, and app control. Removes 99.97% of airborne particles for cleaner air.",
+    "price": 249.99,
+    "originalPrice": 349.99,
+    "category": "Home",
+    "subcategory": "Appliances",
+    "images": [
+      "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.5,
+    "reviewCount": 89,
+    "inStock": true,
+    "stockCount": 28,
+    "specifications": {
+      "coverage": "400 sq ft",
+      "filtration": "HEPA + Carbon",
+      "noiseLevel": "25dB",
+      "connectivity": "WiFi",
+      "sensors": "Air quality, PM2.5",
+      "warranty": "2 years"
+    }
+  },
+  {
+    "id": 11,
+    "title": "Wireless Gaming Mouse",
+    "description": "High-precision wireless gaming mouse with customizable RGB lighting, programmable buttons, and ultra-fast response time.",
+    "price": 79.99,
+    "originalPrice": 99.99,
+    "category": "Electronics",
+    "subcategory": "Peripherals",
+    "images": [
+      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1563297007-0686b7003af7?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1615663554100-fa6d6b65e59c?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.7,
+    "reviewCount": 178,
+    "inStock": true,
+    "stockCount": 89,
+    "specifications": {
+      "dpi": "16000",
+      "connectivity": "2.4GHz Wireless",
+      "battery": "70 hours",
+      "buttons": "8 programmable",
+      "weight": "85g",
+      "warranty": "2 years"
+    }
+  },
+  {
+    "id": 12,
+    "title": "Casual Denim Jeans",
+    "description": "Classic fit denim jeans made from premium cotton blend. Comfortable, durable, and versatile for any casual occasion.",
+    "price": 69.99,
+    "originalPrice": 89.99,
+    "category": "Clothing",
+    "subcategory": "Pants",
+    "images": [
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1605518216938-7c31b7b14ad0?w=500&h=500&fit=crop"
+    ],
+    "rating": 4.3,
+    "reviewCount": 145,
+    "inStock": true,
+    "stockCount": 78,
+    "specifications": {
+      "material": "98% Cotton, 2% Elastane",
+      "fit": "Regular",
+      "wash": "Medium blue",
+      "sizes": "28-42 waist",
+      "care": "Machine washable",
+      "origin": "Made in USA"
+    }
+  }
+]
