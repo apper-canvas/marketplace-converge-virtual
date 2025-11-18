@@ -65,11 +65,20 @@ const ProductCard = ({
                 -{discountPercentage}%
               </Badge>
             )}
-            {!product.inStock && (
+{/* Stock Status Indicators */}
+            {!product.inStock ? (
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <Badge variant="error">Out of Stock</Badge>
               </div>
-            )}
+            ) : product.stockCount <= 10 && product.stockCount > 0 ? (
+              <div className="absolute top-2 left-2">
+                <Badge className="bg-warning text-white">Low Stock</Badge>
+              </div>
+            ) : product.stockCount > 10 ? (
+              <div className="absolute top-2 left-2">
+                <Badge className="bg-success text-white">In Stock</Badge>
+              </div>
+            ) : null}
           </div>
         </Link>
 
@@ -77,12 +86,14 @@ const ProductCard = ({
         <div className="quick-add-overlay">
           <button
             onClick={() => onAddToCart && onAddToCart(product)}
-            disabled={!product.inStock || isInCart}
+disabled={!product.inStock || isInCart}
             className={cn(
               "bg-white text-primary px-4 py-2 rounded-lg font-medium transition-all duration-200",
               "hover:bg-gray-100 active:scale-95 flex items-center gap-2",
-              (!product.inStock || isInCart) && "opacity-50 cursor-not-allowed"
+              (!product.inStock || isInCart) && "opacity-50 cursor-not-allowed",
+              product.stockCount <= 10 && product.inStock && "border-2 border-warning"
             )}
+            title={product.stockCount <= 10 && product.stockCount > 0 ? `Only ${product.stockCount} left!` : ''}
           >
             <ApperIcon name={isInCart ? "Check" : "ShoppingCart"} size={16} />
             {isInCart ? "Added" : "Quick Add"}
@@ -118,14 +129,16 @@ const ProductCard = ({
           </div>
 
           <button
-            onClick={() => onAddToCart && onAddToCart(product)}
+onClick={() => onAddToCart && onAddToCart(product)}
             disabled={!product.inStock || isInCart}
             className={cn(
               "p-2 rounded-full transition-all duration-200",
               product.inStock && !isInCart 
                 ? "bg-accent text-white hover:bg-red-600 active:scale-95"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                : "bg-gray-200 text-gray-400 cursor-not-allowed",
+              product.stockCount <= 10 && product.inStock && "ring-2 ring-warning ring-opacity-50"
             )}
+            title={product.stockCount <= 10 && product.stockCount > 0 ? `Only ${product.stockCount} left!` : ''}
           >
             <ApperIcon name={isInCart ? "Check" : "Plus"} size={16} />
           </button>
