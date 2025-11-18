@@ -18,23 +18,39 @@ const Home = () => {
   useEffect(() => {
     loadHomeData()
   }, [])
-
-  const loadHomeData = async () => {
+const loadHomeData = async () => {
     try {
       setLoading(true)
       setError("")
       
+      console.log('Home: Starting to load home data...')
+
       const [products] = await Promise.all([
         productService.getAll()
       ])
       
+      console.log('Home: Received products:', products)
+      console.log('Home: Products length:', products?.length)
+      
+      if (!products || products.length === 0) {
+        console.log('Home: No products available for home page')
+        setFeaturedProducts([])
+        setCategories([])
+        setError("No products available")
+        return
+      }
+      
       // Get featured products (highest rated or newest)
       const featured = products
-        .sort((a, b) => b.rating - a.rating)
+        .sort((a, b) => (b.rating || 0) - (a.rating || 0))
         .slice(0, 8)
       
+      console.log('Home: Featured products:', featured)
+      setFeaturedProducts(featured)
+      
       // Get unique categories
-      const uniqueCategories = [...new Set(products.map(p => p.category))]
+      const uniqueCategories = [...new Set(products.map(p => p.category).filter(Boolean))]
+      console.log('Home: Categories:', uniqueCategories)
       setCategories(uniqueCategories)
       
       setFeaturedProducts(featured)

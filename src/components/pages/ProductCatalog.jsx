@@ -50,12 +50,24 @@ const ProductCatalog = () => {
     applyFilters()
   }, [products, filters])
 
-  const loadProducts = async () => {
+const loadProducts = async () => {
     try {
       setLoading(true)
       setError("")
+      console.log('ProductCatalog: Starting to load products...')
+      
       const data = await productService.getAll()
-      setProducts(data)
+      console.log('ProductCatalog: Received product data:', data)
+      console.log('ProductCatalog: Product data length:', data?.length)
+      
+      setProducts(data || [])
+      
+      if (!data || data.length === 0) {
+        console.log('ProductCatalog: No products received from service')
+        setError("No products found. Please check if products exist in the database.")
+      } else {
+        console.log('ProductCatalog: Successfully loaded', data.length, 'products')
+      }
 } catch (err) {
       const errorMessage = err?.response?.data?.message || err.message || "Failed to load products"
       console.error("ProductCatalog - Error loading products:", errorMessage)

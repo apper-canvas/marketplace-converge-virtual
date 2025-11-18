@@ -22,7 +22,7 @@ class ProductService {
         throw new Error('ApperClient not initialized')
       }
 
-      const params = {
+const params = {
         fields: [
           {"field": {"Name": "Id"}},
           {"field": {"Name": "Name"}},
@@ -38,32 +38,55 @@ class ProductService {
           {"field": {"Name": "stock_count_c"}},
           {"field": {"Name": "specifications_c"}},
           {"field": {"Name": "images_c"}}
-        ]
+        ],
+        pagingInfo: {
+          limit: 100,
+          offset: 0
+        }
       }
 
+      console.log('ProductService: Fetching products with params:', params)
       const response = await apperClient.fetchRecords('products_c', params)
       
+      console.log('ProductService: Raw response:', response)
+      console.log('ProductService: Response success:', response?.success)
+      console.log('ProductService: Response data length:', response?.data?.length)
+      
       if (!response.success) {
-        console.error(`productService.getAll - API error: ${response.message}`)
+        console.error('ProductService: Fetch failed:', response.message)
+        toast.error(response.message)
         return []
       }
 
-      return response.data.map(product => ({
-        Id: product.Id,
-        id: product.Id, // Keep for backward compatibility
-        title: product.title_c || product.Name,
-        description: product.description_c,
-        price: product.price_c,
-        originalPrice: product.original_price_c,
-        category: product.category_c,
-        subcategory: product.subcategory_c,
-        rating: product.rating_c,
-        reviewCount: product.review_count_c,
-        inStock: product.in_stock_c,
-        stockCount: product.stock_count_c,
-specifications: ProductService.safeJsonParse(product.specifications_c, null),
-        images: ProductService.safeJsonParse(product.images_c, [])
-      }))
+      if (!response.data || response.data.length === 0) {
+        console.log('ProductService: No products found in database')
+        return []
+      }
+
+      console.log('ProductService: Raw product data:', response.data)
+
+      const transformedProducts = response.data.map(product => {
+        console.log('ProductService: Transforming product:', product)
+        return {
+          Id: product.Id,
+          id: product.Id, // Keep for backward compatibility
+          title: product.title_c || product.Name,
+          description: product.description_c,
+          price: product.price_c,
+          originalPrice: product.original_price_c,
+          category: product.category_c,
+          subcategory: product.subcategory_c,
+          rating: product.rating_c,
+          reviewCount: product.review_count_c,
+          inStock: product.in_stock_c,
+          stockCount: product.stock_count_c,
+          specifications: ProductService.safeJsonParse(product.specifications_c, null),
+          images: ProductService.safeJsonParse(product.images_c, [])
+        }
+      })
+
+      console.log('ProductService: Transformed products:', transformedProducts)
+      return transformedProducts
     } catch (error) {
       console.error(`productService.getAll - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
@@ -314,7 +337,7 @@ console.error(`productService.search - Network/parsing error for query "${query}
       }
 
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Id"}},
           {"field": {"Name": "Name"}},
           {"field": {"Name": "title_c"}},
@@ -329,40 +352,47 @@ console.error(`productService.search - Network/parsing error for query "${query}
           {"field": {"Name": "stock_count_c"}},
           {"field": {"Name": "specifications_c"}},
           {"field": {"Name": "images_c"}}
-        ],
-        orderBy: [{
-          "fieldName": "rating_c",
-          "sorttype": "DESC"
-        }],
-        pagingInfo: {
-          "limit": limit,
-          "offset": 0
-        }
+        ]
       }
 
-      const response = await apperClient.fetchRecords('products_c', params)
+      console.log(`ProductService: Fetching product by ID ${id} with params:`, params)
+      const response = await apperClient.getRecordById('products_c', id, params)
+      
+      console.log('ProductService: getById raw response:', response)
+      console.log('ProductService: getById response success:', response?.success)
       
       if (!response.success) {
-console.error(`productService.getFeatured - API error: ${response.message}`)
-        return []
+        console.error('ProductService: getById failed:', response.message)
+        toast.error(response.message)
+        return null
       }
 
-      return response.data.map(product => ({
-        Id: product.Id,
-        id: product.Id, // Keep for backward compatibility
-        title: product.title_c || product.Name,
-        description: product.description_c,
-        price: product.price_c,
-        originalPrice: product.original_price_c,
-        category: product.category_c,
-        subcategory: product.subcategory_c,
-        rating: product.rating_c,
-        reviewCount: product.review_count_c,
-        inStock: product.in_stock_c,
-        stockCount: product.stock_count_c,
-specifications: ProductService.safeJsonParse(product.specifications_c, null),
-        images: ProductService.safeJsonParse(product.images_c, [])
-      }))
+      if (!response.data) {
+        console.log(`ProductService: Product ${id} not found`)
+        return null
+      }
+
+      console.log('ProductService: Raw product data for ID:', id, response.data)
+
+      const transformedProduct = {
+        Id: response.data.Id,
+        id: response.data.Id, // Keep for backward compatibility
+        title: response.data.title_c || response.data.Name,
+        description: response.data.description_c,
+        price: response.data.price_c,
+        originalPrice: response.data.original_price_c,
+        category: response.data.category_c,
+        subcategory: response.data.subcategory_c,
+        rating: response.data.rating_c,
+        reviewCount: response.data.review_count_c,
+        inStock: response.data.in_stock_c,
+        stockCount: response.data.stock_count_c,
+        specifications: ProductService.safeJsonParse(response.data.specifications_c, null),
+        images: ProductService.safeJsonParse(response.data.images_c, [])
+      }
+
+      console.log('ProductService: Transformed product:', transformedProduct)
+      return transformedProduct
     } catch (error) {
 console.error(`productService.getFeatured - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
@@ -377,20 +407,31 @@ console.error(`productService.getFeatured - Network/parsing error: ${error?.resp
       }
 
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "category_c"}}
         ],
         groupBy: ["category_c"]
       }
 
+      console.log('ProductService: Fetching categories with params:', params)
       const response = await apperClient.fetchRecords('products_c', params)
       
-if (!response.success) {
-        console.error(`productService.getCategories - API error: ${response.message}`)
+      console.log('ProductService: Categories raw response:', response)
+
+      if (!response.success) {
+        console.error('ProductService: Categories fetch failed:', response.message)
+        toast.error(response.message)
         return []
       }
 
-      return [...new Set(response.data.map(product => product.category_c).filter(Boolean))]
+      if (!response.data) {
+        console.log('ProductService: No categories found')
+        return []
+      }
+
+      const categories = [...new Set(response.data.map(product => product.category_c).filter(Boolean))]
+      console.log('ProductService: Extracted categories:', categories)
+      return categories
     } catch (error) {
 console.error(`productService.getCategories - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
