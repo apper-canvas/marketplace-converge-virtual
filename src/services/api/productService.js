@@ -1,7 +1,20 @@
-import { getApperClient } from "@/services/apperClient"
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
+import React from "react";
+import { getApperClient } from "@/services/apperClient";
 
 class ProductService {
+  // Safe JSON parsing utility to handle malformed data
+  static safeJsonParse(jsonString, fallback = null) {
+    if (!jsonString || typeof jsonString !== 'string') {
+      return fallback;
+    }
+    try {
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.warn('JSON parsing failed:', error.message, 'Data:', jsonString);
+      return fallback;
+    }
+  }
   async getAll() {
     try {
       const apperClient = getApperClient()
@@ -30,7 +43,7 @@ class ProductService {
 
       const response = await apperClient.fetchRecords('products_c', params)
       
-if (!response.success) {
+      if (!response.success) {
         console.error(`productService.getAll - API error: ${response.message}`)
         return []
       }
@@ -48,11 +61,11 @@ if (!response.success) {
         reviewCount: product.review_count_c,
         inStock: product.in_stock_c,
         stockCount: product.stock_count_c,
-        specifications: product.specifications_c ? JSON.parse(product.specifications_c) : null,
-        images: product.images_c ? JSON.parse(product.images_c) : []
+specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        images: ProductService.safeJsonParse(product.images_c, [])
       }))
     } catch (error) {
-console.error(`productService.getAll - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
+      console.error(`productService.getAll - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }
@@ -106,8 +119,8 @@ if (!response.success) {
         reviewCount: product.review_count_c,
         inStock: product.in_stock_c,
         stockCount: product.stock_count_c,
-        specifications: product.specifications_c ? JSON.parse(product.specifications_c) : null,
-        images: product.images_c ? JSON.parse(product.images_c) : []
+specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        images: ProductService.safeJsonParse(product.images_c, [])
       }
     } catch (error) {
 console.error(`productService.getById - Network/parsing error for ID ${id}: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
@@ -167,8 +180,8 @@ if (!response.success) {
         reviewCount: product.review_count_c,
         inStock: product.in_stock_c,
         stockCount: product.stock_count_c,
-        specifications: product.specifications_c ? JSON.parse(product.specifications_c) : null,
-        images: product.images_c ? JSON.parse(product.images_c) : []
+specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        images: ProductService.safeJsonParse(product.images_c, [])
       }))
     } catch (error) {
 console.error(`productService.getByCategory - Network/parsing error for category "${category}": ${error?.response?.data?.message || error.message || 'Unknown error'}`)
@@ -257,8 +270,8 @@ if (!response.success) {
         reviewCount: product.review_count_c,
         inStock: product.in_stock_c,
         stockCount: product.stock_count_c,
-        specifications: product.specifications_c ? JSON.parse(product.specifications_c) : null,
-        images: product.images_c ? JSON.parse(product.images_c) : []
+specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        images: ProductService.safeJsonParse(product.images_c, [])
       }))
     } catch (error) {
 console.error(`productService.search - Network/parsing error for query "${query}": ${error?.response?.data?.message || error.message || 'Unknown error'}`)
@@ -320,8 +333,8 @@ console.error(`productService.getFeatured - API error: ${response.message}`)
         reviewCount: product.review_count_c,
         inStock: product.in_stock_c,
         stockCount: product.stock_count_c,
-        specifications: product.specifications_c ? JSON.parse(product.specifications_c) : null,
-        images: product.images_c ? JSON.parse(product.images_c) : []
+specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        images: ProductService.safeJsonParse(product.images_c, [])
       }))
     } catch (error) {
 console.error(`productService.getFeatured - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
