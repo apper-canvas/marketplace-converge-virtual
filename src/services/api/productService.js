@@ -329,7 +329,7 @@ console.error(`productService.search - Network/parsing error for query "${query}
     }
   }
 
-  async getFeaturedProducts(limit = 8) {
+async getFeaturedProducts(limit = 8) {
     try {
       const apperClient = getApperClient()
       if (!apperClient) {
@@ -337,7 +337,7 @@ console.error(`productService.search - Network/parsing error for query "${query}
       }
 
       const params = {
-fields: [
+        fields: [
           {"field": {"Name": "Id"}},
           {"field": {"Name": "Name"}},
           {"field": {"Name": "title_c"}},
@@ -352,49 +352,67 @@ fields: [
           {"field": {"Name": "stock_count_c"}},
           {"field": {"Name": "specifications_c"}},
           {"field": {"Name": "images_c"}}
-        ]
+        ],
+        where: [
+          {
+            "FieldName": "in_stock_c",
+            "Operator": "EqualTo",
+            "Values": [true],
+            "Include": true
+          }
+        ],
+        orderBy: [
+          {
+            "fieldName": "rating_c",
+            "sorttype": "DESC"
+          }
+        ],
+        pagingInfo: {
+          "limit": limit,
+          "offset": 0
+        }
       }
 
-      console.log(`ProductService: Fetching product by ID ${id} with params:`, params)
-      const response = await apperClient.getRecordById('products_c', id, params)
+      console.log('ProductService: Fetching featured products with params:', params)
+      const response = await apperClient.fetchRecords('products_c', params)
       
-      console.log('ProductService: getById raw response:', response)
-      console.log('ProductService: getById response success:', response?.success)
+      console.log('ProductService: getFeaturedProducts raw response:', response)
+      console.log('ProductService: getFeaturedProducts response success:', response?.success)
       
       if (!response.success) {
-        console.error('ProductService: getById failed:', response.message)
+        console.error('ProductService: getFeaturedProducts failed:', response.message)
         toast.error(response.message)
-        return null
+        return []
       }
 
-      if (!response.data) {
-        console.log(`ProductService: Product ${id} not found`)
-        return null
+      if (!response.data || response.data.length === 0) {
+        console.log('ProductService: No featured products found')
+        return []
       }
 
-      console.log('ProductService: Raw product data for ID:', id, response.data)
+      console.log('ProductService: Raw featured products data:', response.data)
 
-      const transformedProduct = {
-        Id: response.data.Id,
-        id: response.data.Id, // Keep for backward compatibility
-        title: response.data.title_c || response.data.Name,
-        description: response.data.description_c,
-        price: response.data.price_c,
-        originalPrice: response.data.original_price_c,
-        category: response.data.category_c,
-        subcategory: response.data.subcategory_c,
-        rating: response.data.rating_c,
-        reviewCount: response.data.review_count_c,
-        inStock: response.data.in_stock_c,
-        stockCount: response.data.stock_count_c,
-        specifications: ProductService.safeJsonParse(response.data.specifications_c, null),
-        images: ProductService.safeJsonParse(response.data.images_c, [])
-      }
+      const transformedProducts = response.data.map(product => ({
+        Id: product.Id,
+        id: product.Id, // Keep for backward compatibility
+        title: product.title_c || product.Name,
+        description: product.description_c,
+        price: product.price_c,
+        originalPrice: product.original_price_c,
+        category: product.category_c,
+        subcategory: product.subcategory_c,
+        rating: product.rating_c,
+        reviewCount: product.review_count_c,
+        inStock: product.in_stock_c,
+        stockCount: product.stock_count_c,
+        specifications: ProductService.safeJsonParse(product.specifications_c, null),
+        images: ProductService.safeJsonParse(product.images_c, [])
+      }))
 
-      console.log('ProductService: Transformed product:', transformedProduct)
-      return transformedProduct
+      console.log('ProductService: Transformed featured products:', transformedProducts)
+      return transformedProducts
     } catch (error) {
-console.error(`productService.getFeatured - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
+      console.error(`productService.getFeaturedProducts - Network/parsing error: ${error?.response?.data?.message || error.message || 'Unknown error'}`)
       return []
     }
   }
