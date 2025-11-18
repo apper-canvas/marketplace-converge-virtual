@@ -7,6 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import { cn } from "@/utils/cn";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
+import LogoutButton from "@/components/atoms/LogoutButton";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -15,7 +16,7 @@ const Header = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { items, getTotalItems } = useCart()
-
+  const { user } = useSelector((state) => state.user)
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0)
@@ -60,7 +61,7 @@ const Header = () => {
             <span className="font-bold text-xl text-primary">MarketPlace</span>
           </Link>
 
-          {/* Desktop Navigation */}
+{/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navigationItems.map((item) => (
               <Link
@@ -74,6 +75,9 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
+            {user && (
+              <LogoutButton className="text-sm" />
+            )}
           </nav>
 
           {/* Search Bar - Desktop */}
@@ -136,7 +140,7 @@ const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden border-t border-gray-200 bg-white overflow-hidden"
           >
-            <nav className="px-4 py-4 space-y-2">
+<nav className="px-4 py-4 space-y-2">
               {navigationItems.map((item) => (
                 <Link
                   key={item.path}
@@ -151,6 +155,11 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
+              {user && (
+                <div className="px-4 py-2">
+                  <LogoutButton className="w-full justify-start" />
+                </div>
+              )}
             </nav>
           </motion.div>
         )}
