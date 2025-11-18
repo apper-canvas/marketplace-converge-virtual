@@ -45,7 +45,7 @@ export const useCart = () => {
     }
 
     setItems(prevItems => {
-      const existingItem = prevItems.find(item => item.productId === product.id)
+const existingItem = prevItems.find(item => item.productId === product.Id)
       
       if (existingItem) {
         const newQuantity = existingItem.quantity + quantity
@@ -55,7 +55,7 @@ export const useCart = () => {
         }
         
         return prevItems.map(item =>
-          item.productId === product.id
+item.productId === product.Id
             ? { ...item, quantity: newQuantity }
             : item
         )
@@ -65,7 +65,7 @@ export const useCart = () => {
           return prevItems
         }
         
-        return [...prevItems, { productId: product.id, quantity }]
+return [...prevItems, { productId: product.Id, quantity }]
       }
     })
 
@@ -83,7 +83,7 @@ export const useCart = () => {
       return
     }
 
-    const product = products.find(p => p.id === productId)
+const product = products.find(p => p.Id === productId)
     if (product && quantity > product.stockCount) {
       toast.error(`Only ${product.stockCount} items available in stock`)
       return
